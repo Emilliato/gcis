@@ -1,0 +1,13 @@
+Hello you are about to add details
+<form action="{%url 'system:add_details' id %}" method ="post">{%csrf_token%}
+  <p>Customer Details </p>
+  <ul>
+    {{form.as_p}}
+  </ul>
+  <p>Bank Details </p>
+  <ul>
+    {{form1.as_p}}
+  </ul>
+
+  <input type="submit" name="submit" value="Next">
+</form>

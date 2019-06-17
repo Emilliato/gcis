@@ -1,0 +1,43 @@
+hr {
+width: 96%;
+margin-left: auto;
+margin-right: auto;
+height: 100px;
+background-color: blue;
+opcaity: 0.5;
+}
+
+.border{
+  border: 2px solid blue;
+  height: 5px;
+  border-radius: 42px;
+  width: 95%;
+  margin: auto;
+  margin-bottom: 2%;
+}
+.border-dotted{
+  border: 2px dashed white;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 5%;
+}
+
+.cont{
+  padding: 20px;
+  background-color: white;
+}
+.conti{
+  padding: 10px;
+}
+.img-size{
+  width=152px;
+  height: 152px;
+
+}
+
+.data{
+  text-align: right;
+}
+.header{
+  text-align: center;
+}

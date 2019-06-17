@@ -1,0 +1,131 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "system/css/styles.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.min.css" %}" >
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.css" %}" >
+
+  <div class="row conti" style="display:none;">
+    <div class="col-11 float-sm-right">
+      <a class="btn btn-success" href="#" role="button">Print</a>
+    </div>
+  </div>
+
+
+
+
+  <div class="cont" id="print_me">
+    <div class="row ">
+      <div class="col-4">
+
+      </div>
+      <div class="col-6" >
+        <div class="float-sm-left" style="padding-top:10px; padding-left:80px;">
+        <img src="{% static "system/pp.jpg" %}" class="rounded float-center img-size" alt="Grasp Chemicals">
+        </div>
+      </div>
+    </div>
+     <br><br>
+    <div class="row conti">
+      <div class="col-3 conti">
+        <div class="float-sm-left" style="padding-top:10px; padding-left:20px;">
+       <p > 11 Armagh Road </p>
+       <p > Eastlea Harare </p>
+       </div>
+      </div>
+      <div class="col-5 float-sm-right" style="text-align:center">
+        <br><br>
+        <p> <strong>Invoice </strong> #{{invoice.number}} </p>
+      </div>
+      <div class="col-4 float-sm-right conti">
+        <div class="float-sm-right" style="padding-top:0px; padding-right:60px;">
+
+          <p class="float-sm-right">Call&nbsp;: &nbsp; 0773229127 | 0715676800 </p>
+          <p class="float-sm-right" > Email&nbsp;: graspchemicals@gmail.com</p>
+        </div>
+      </div>
+    </div>
+    <hr class="border">
+    <div class="row conti">
+      <div class="col-4">
+        {%for c in invoice.icustomer_set.all%}
+        <p> {{c.c_name}} </p>
+        <p> {{c.c_address}}</p>
+
+        {%endfor%}
+        <p> VAT No. {{invoice.vat_number}}</p>
+      </div>
+      <div class="col-5 float-sm-right conti">
+      </div>
+      <div class="col-3 float-sm-right ">
+        <div class="float-sm-right conti" style="padding-top:0px; padding-right:60px;">
+          <p><strong>{{ invoice.date_created|date:"d F Y" }}</strong></p>
+          <p>PO#{{invoice.order_number}}</strong></p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <!-- <th scope="col">Code</th> -->
+          <th scope="col">Product Name</th>
+          <th class= "header"scope="col">Quantity</th>
+          <th class= "header"scope="col">Price</th>
+          <th class= "header"scope="col" class="data">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% with total=invoice.total %}
+        {%for c in invoice.iproduct_set.all%}
+            <tr>
+              {% load django_template_maths %}
+              <!-- <th scope="row">{{c.p_code}}</th> -->
+              <td >{{c.p_name}}</td>
+              <td class="data">{{c.p_quantity}}</td>
+              <td class="data">{{c.p_price}}</td>
+              <td  class="data">{{ c.p_quantity|mul:c.p_price|add_decimal:2 }}</td>
+            </tr>
+
+        {%endfor%}
+
+
+
+
+        <tr>
+
+          <td colspan="2" style="border-bottom: 1px solid #fff;border-left: 1px solid #fff;"></td>
+          <td class="header"><strong>Sub Total</strong></td>
+          <td class="data"><strong>{{total|add_decimal:2}}</strong></td>
+        </tr>
+        <tr>
+
+          <td colspan="2" style="border-bottom: 1px solid #fff;border-left: 1px solid #fff;"></td>
+          <td class="header"><strong>Vat</strong></td>
+          <td class="data"><strong></strong></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border-bottom: 1px solid #fff;border-left: 1px solid #fff;"></td>
+          <td class="header"><strong>Total</strong></td>
+          <td class="data"><strong>{{total|add_decimal:2}}</strong></td>
+        </tr>
+    {%endwith%}
+      </tbody>
+    </table>
+    <div class="row ">
+      <div class="col-6">
+        <h3> BANK DETAILS
+        </h3>
+        {%for c in invoice.ibankdetail_set.all%}
+        <p> Account Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{c.account_name}}</p>
+        <p> Account Number&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{c.accout_num}}</p>
+        <p> Account Type&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{c.account_type}}</p>
+        {%endfor%}
+      </div>
+      <div class="col-6">
+        <br><br><br><br>
+        <p><strong>Signature:</strong>&nbsp;<hr class="border-dotted"></p>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,67 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+hr{
+  height: 5px;
+  width: 900px;
+}
+.cont{
+  padding: 20px;
+}
+
+</style>
+<center>
+<h2>
+  <br>
+
+  Invoices Home Page
+  <br>
+  <br>
+</h2>
+</center>
+<div class="container">
+  <div class="row ">
+    <div class="col-10">
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+    </div>
+    <div class="col-2">
+      <a class="btn btn-success" href="{% url 'system:icreate' %}" role="button">New Invoice</a>
+   <br>
+   <br>
+    </div>
+  </div>
+</div>
+
+<div class="cont">
+{%if invoice_list%}
+  <div class="list-group">
+    <div class="row ">
+      <div class="col-10">
+    {% load django_template_maths %}
+
+    {% for q in invoice_list%}
+
+      {% with total=q.total %}
+        <div class="row ">
+          <div class="col-10" style="margin-bottom: 20px;">
+          <a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action">{{q}}</a>
+          </div>
+          {% if q.total <= 0 %}
+            <div class="col-2" style="text-align: center;margin-bottom: 20px;">
+              <a href="{% url 'system:add_details' q.id%}" class="list-group-item list-group-item-action">Edit</a>
+            </div>
+          {%endif%}
+        </div>
+      {%endwith%}
+    {% endfor %}
+
+  </div>
+{% else %}
+<p>No Invoices are available</p>
+{% endif %}
+</div>

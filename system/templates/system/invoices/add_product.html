@@ -1,0 +1,8 @@
+Hello you are about to add a product
+<form action="{%url 'system:add_product' id%}" method ="post">
+  {%csrf_token%}
+  <ul>
+    {{form.as_p}}
+  </ul>
+  <input type="submit" name="submit" value="Create">
+</form>

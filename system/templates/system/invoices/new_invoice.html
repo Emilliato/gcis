@@ -1,0 +1,7 @@
+   <p>Click next below and click edit to finish up your invoice</p>
+<form action="{%url 'system:icreate'%}" method ="post">{%csrf_token%}
+  <ul>
+    {{form.as_p}}
+  </ul>
+  <input type="submit" name="submit" value="Next">
+</form>
