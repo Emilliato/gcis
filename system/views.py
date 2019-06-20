@@ -45,7 +45,7 @@ def new(request):
     invoice_list = Invoice.objects.order_by('-date_created')
     id=0
     if(len(invoice_list)!=0):
-        id = str(int(invoice_list[0].number[-1])+1)
+        id = str(int(invoice_list[0].number[-1])+str(1))
 
     date1= datetime.strftime(timezone.now(),'%y')+str(str(random.randint(0,9)))+datetime.strftime(timezone.now(),'%d').lstrip('0')+id
     invoiceNum = 'GC'+date1
