@@ -1,0 +1,93 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "system/css/styles.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.min.css" %}" >
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.css" %}" >
+
+<style>
+hr{
+  height: 5px;
+  width: 900px;
+}
+.cont{
+  padding: 20px;
+}
+
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #3F4093;">
+  <div class="row">
+    <div class=" col-6 float-sm-left">
+  <a class="navbar-brand" href="{%url 'system:index' %}">Grasp Chemicals</a>
+  </div>
+    <!-- <div class=" col-6 float-sm-right">
+    <button class="btn btn-outline-success my-2 my-sm-0 float-sm-left " type="submit">SIGNOUT</button>
+    </div> -->
+
+  </div>
+</nav>
+<center>
+<h2>
+  Home Page
+</h2>
+
+</center>
+
+<div class="container back">
+  <div class="row">
+    <div class="col-9">
+    </div>
+    <div class="col-3">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <p class="center">
+        <a href="{% url 'system:invoices' %}">{{' Invoices'}}</a>
+      </p>
+      <p>
+        <a href="{% url 'system:quotations' %}"> Quotations</a>
+      </p>
+      <p>
+        <a href="{% url 'system:reciepts' %}"> Reciepts</a>
+      </p>
+      <p>
+        <a href="{% url 'system:purchases' %}"> Purchase Orders</a>
+      </p>
+      <br>
+      <br>
+    </div>
+
+  </div>
+  <br>
+  <br>      <br>
+        <br>      <br>
+              <br>      <br><br>
+              <br>
+              <br>      <br>
+                    <br>      <br>
+                          <br>      <br><br>
+                          <br>
+                          <br>      <br>
+                                <br>      <br>
+                                      <br>      <br><br>
+                                      <br>
+                                      <br>      <br>
+                                            <br>      <br>
+                                                  <br>      <br><br>
+                                                  <br>
+                                                  <br>      <br>
+                                                        <br>      <br>
+                                                              <br>      <br><br>
+
+</div>
+<div class="card fixed-bottom">
+  <div class="card-header" style="">
+    Quote
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+      <footer class="blockquote-footer fixed-bottom">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+    </blockquote>
+  </div>
+</div>

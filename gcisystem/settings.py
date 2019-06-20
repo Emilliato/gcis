@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_template_maths',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -51,8 +52,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'gcisystem.urls'
 
+ROOT_URLCONF = 'gcisystem.urls'
+TEMPLATE_DIRS =(
+                os.path.join(BASE_DIR,"system","templates"),
+)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -118,5 +122,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+CRISPY_TEMPLATE_PACK= 'bootstrap4'
 STATIC_URL = '/static/'

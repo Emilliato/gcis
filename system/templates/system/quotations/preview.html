@@ -1,0 +1,164 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "system/css/styles.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.min.css" %}" >
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.css" %}" >
+
+   <!-- <center>
+    <p>I am preview
+    </p>
+   </center> -->
+
+
+<div class="cont" id="print_me">
+  <div class="row ">
+
+      <img src="{% static "system/pp.jpg" %}" class="rounded float-center img-size" alt="Grasp Chemicals">
+    </div>
+
+  <div class="row ">
+    <div class=" blue">
+      <p>Our excellence is in manufacturing and distibution of all cleaning</p>
+      <p>chemicals and materials for automotive, industrial, household and cleaning services</p>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="faint">
+      <p>11 Armagh Road, Eastlea Harare. Tel 04761059. Call: 0773 229 127, 0715 676 800. Email: graspchemicals@gmail.com</p>
+    </div>
+  </div>
+  <div class="row " style="padding-left:20px; padding-top:10px;" >
+    <div class="col-4 conti " style="margin-left:7%;">
+        <span class="sexy_line_dark"></span>
+        <span class="sexy_line_light"></span>
+    </div>
+    <div class="col-2default" >
+      <h2><strong>QUOTATION </strong> </h2>
+    </div>
+    <div class="col-4 conti wider2" >
+        <span class="sexy_line_dark_right"></span>
+        <span class="sexy_line_light_right"></span>
+    </div>
+  </div>
+
+  <div class="row conti">
+    <div class="col-6">
+
+      <p class="p"><strong>To :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{quotation.customer}} </p>
+      <p class="p"><strong>Address :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{quotation.customer_address}}</p>
+
+      <p class="p"><strong>Date :</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;{{ quotation.date_created|date:"d F Y" }}</p>
+      <p class="p"><strong>Ref No.</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{quotation.ref_number}}</strong></p>
+      <br><br>
+    </div>
+  </div>
+</div>
+
+<div class="conti">
+<div class="row ">
+ <div class="col-3 float-sm-center">
+   <div class="float-sm-center" style="padding-left: 20%">
+   <a class="btn btn-success" href="{%url 'system:qadd_product' quotation.id%}" role="button">Add Product</a>
+   </div>
+ </div>
+</div>
+</div>
+<div class="cont" id="print_me1">
+  <table class="table  table-sm">
+    <thead>
+      <tr>
+        <!-- <th scope="col">Code</th> -->
+        <th class= "table-bordered"scope="col-1" style="width:5%;">Quantity</th>
+        <th class= "table-bordered"scope="col" style="padding-left:5%;" >Description</th>
+        <th class= "header table-bordered "scope="col" style="width:15%;">Price</th>
+        <th class= "header table-bordered "scope="col" style="width:15%;">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+  {% with total=quotation.total %}
+      {%for c in quotation.cproduct_set.all%}
+          <tr>
+            {% load django_template_maths %}
+            <td class= "table-bordered">{{c.p_quantity|add_decimal:0 }}</td>
+            <td class= "table-bordered"style="padding-left:5%;">{{c.p_name}}</td>
+            <td class="data table-bordered">{{c.p_price}}</td>
+            <td  class="data table-bordered">{{ c.p_quantity|mul:c.p_price|add_decimal:2 }}</td>
+          </tr>
+
+      {%endfor%}
+
+
+
+
+      <tr>
+
+        <td colspan="2" style="border-bottom: 1px solid #fff;border-left: 1px solid #fff;"></td>
+        <td class="header table-bordered"><strong>Sub Total</strong></td>
+        <td class="data table-bordered"><strong>{{total|add_decimal:2}}</strong></td>
+      </tr>
+      <tr>
+
+        <td colspan="2" style="border-bottom: 1px solid #fff;border-left: 1px solid #fff;"></td>
+        <td class="header table-bordered"><strong>Vat</strong></td>
+        <td class="data table-bordered"><strong></strong></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="border-bottom: 1px solid #fff;border-left: 1px solid #fff;"></td>
+        <td class="header table-bordered"><strong>Total</strong></td>
+        <td class="data table-bordered"><strong>{{total|add_decimal:2}}</strong></td>
+      </tr>
+  {%endwith%}
+    </tbody>
+  </table>
+  <br><br><brquotation
+
+  </div>
+  <br><br>
+
+    <br><br>
+    <!-- Terms and Condtitions -->
+    <div class="row "style="padding-left:15px">
+    <div class="col-6"style="padding-right:0px;">
+      <h4 class="p" style="padding:0px;"><strong><u>Terms And Condtitions</u></strong></h4>
+      <ol>
+        <li class="p"><p>Valid for ten days </p></li>
+        <li class="p"><p>Delivery of goods is done within three working days.</p></li>
+      <ol>
+    </div>
+    </div>
+    <!-- End of terms and Condtitions -->
+    <br><br>
+    <!-- Signature -->
+    <div class="row "style="padding-left:15px">
+    <div class="col-1"style="padding-right:0px;">
+      <p class="p" style="padding:0px;">SIGNATURE:</p>
+    </div>
+    <div class="col-6"style="padding:0px;margin-right:40px;padding-left:2%;">
+      <hr class="border-dotted" style="padding:0px;">    </div>
+    </div>
+    <!-- End Signature -->
+</div>
+<hr>
+<div class="conti" >
+<div class="row ">
+ <div class="col-3 float-sm-center">
+   <div class="float-sm-center" style="padding-left: 20%">
+   <a class="btn btn-success" href="{%url 'system:quotations' %}" role="button">Finish</a>
+   </div>
+ </div>
+ <div class="col-9 float-sm-right" >
+   <div class="float-sm-right" style="padding-right:70px;">
+     <a class="btn btn-success" href="#" onclick="printContent('print_me','print_me1')" role="button">Print</a>
+   </div>
+ </div>
+ <!-- <div class="col-6 float-sm-right">
+   <a class="btn btn-success" href="#" role="button">Print</a>
+ </div> -->
+</div>
+</div>
+<script src="{% static "system/js/plugin.js" %}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

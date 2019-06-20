@@ -1,3 +1,9 @@
+.white{
+  color:white;
+}
+.white:hover{
+  color: white;
+}
 hr {
 width: 96%;
 margin-left: auto;
@@ -6,21 +12,130 @@ height: 100px;
 background-color: blue;
 opcaity: 0.5;
 }
+.back{
+  background-image: url('../system/static/1pp.jpg');
+  background-repeat: no-repeat;
+}
+th{
+  color: red;
+  font-size: 22px;
+  font-family: arial;
+}
+td{
+  color:black;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+p{
+  color:inherit;
+}
+.p{
+  color:black;
+  margin-bottom: 4px;
+  font-size: 18px;
+  font-family: sans-serif;
+}
 
 .border{
   border: 2px solid blue;
   height: 5px;
-  border-radius: 42px;
   width: 95%;
   margin: auto;
   margin-bottom: 2%;
 }
 .border-dotted{
-  border: 2px dashed white;
-  width: 60%;
+  border: 1px dashed white;
   margin: auto;
+  width: 90%;
+  margin-top: 20px;
   margin-bottom: 5%;
 }
+.blue{
+  width: 95%;
+  margin: auto;
+  margin-top: 0px;
+  background-color: #3F4093;
+  color: white;
+  font-size: 18px;
+  font-family: serif;
+  font-style: italic;
+}
+.faint{
+  width: 95%;
+  margin: auto;
+  margin-top: 0px;
+  background-color: #F9BCA7;
+  color: #553961;
+  font-size: 18px;
+  font-family: fantasy;
+  padding-bottom: 5px;
+}
+
+.blue>p{
+  margin-bottom: 2px;
+  text-align: center;
+}
+.faint>p{
+  margin-top: 0px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+.wider{
+  margin-left: 8%;
+}
+.wider2{
+  margin-left: 20px;
+}
+
+.sexy_line_dark{
+    display:block;
+    border:none;
+    color:white;
+    margin-top:7px;
+    margin-bottom: 2px;
+    height:3px;
+    background: #3F4093;
+    background: -webkit-linear-gradient(top right, white, #3F4093);
+}
+h2{
+  color:#3F4093;
+}
+.default-all{
+  margin: 0px;
+  padding: 0px;
+  margin-top: 5px;
+}
+.sexy_line_light{
+    display:block;
+    border:none;
+    color:white;
+    margin-bottom: 2px;
+    height:3px;
+    background: #3F4093;
+    background: -webkit-linear-gradient(top right, white, #D76668);
+}
+.sexy_line_dark_right{
+    display:block;
+    border:none;
+    color:white;
+    margin-top:7px;
+    margin-bottom: 2px;
+    margin-right: 20px;
+    height:4px;
+    background: #3F4093;
+    background: -webkit-linear-gradient(left, white, #3F4093);
+}
+.sexy_line_light_right{
+    display:block;
+    border:none;
+    color:white;
+    margin-bottom: 2px;
+    margin-right: 20px;
+    height:3px;
+    background: #3F4093;
+    background: -webkit-linear-gradient(left, white, #D76668);
+}
+
 
 .cont{
   padding: 20px;
@@ -30,9 +145,8 @@ opcaity: 0.5;
   padding: 10px;
 }
 .img-size{
-  width=152px;
-  height: 152px;
-
+  width: 100%;
+  height: 100%;
 }
 
 .data{

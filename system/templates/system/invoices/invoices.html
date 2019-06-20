@@ -1,5 +1,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "system/css/styles.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.min.css" %}" >
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.css" %}" >
+<link rel="stylesheet" href=" {% static "system/css/footer.css"%} ">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
 <style>
 hr{
@@ -9,59 +14,146 @@ hr{
 .cont{
   padding: 20px;
 }
+.back{
+  padding: 20px;
+  padding-top: 70px;
+  /* background-image: url('{% static "system/1pp.jpg" %}'); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 </style>
-<center>
-<h2>
-  <br>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #3700B3;">
+  <a class="navbar-brand" href="{%url 'system:index' %}"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  Invoices Home Page
-  <br>
-  <br>
-</h2>
-</center>
-<div class="container">
-  <div class="row ">
-    <div class="col-10">
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-
-    </div>
-    <div class="col-2">
-      <a class="btn btn-success" href="{% url 'system:icreate' %}" role="button">New Invoice</a>
-   <br>
-   <br>
-    </div>
-  </div>
-</div>
-
-<div class="cont">
-{%if invoice_list%}
-  <div class="list-group">
-    <div class="row ">
-      <div class="col-10">
-    {% load django_template_maths %}
-
-    {% for q in invoice_list%}
-
-      {% with total=q.total %}
-        <div class="row ">
-          <div class="col-10" style="margin-bottom: 20px;">
-          <a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action">{{q}}</a>
-          </div>
-          {% if q.total <= 0 %}
-            <div class="col-2" style="text-align: center;margin-bottom: 20px;">
-              <a href="{% url 'system:add_details' q.id%}" class="list-group-item list-group-item-action">Edit</a>
-            </div>
-          {%endif%}
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{%url 'system:index' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'system:icreate' %}" role="button">New Invoice</a>
+      </li>
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Quotations</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      {%endwith%}
-    {% endfor %}
-
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li> -->
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
-{% else %}
-<p>No Invoices are available</p>
-{% endif %}
+</nav>
+<div class="container-fluid">
+  <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div class="sidebar-sticky" style="padding-top:42%; color:white;">
+          <ul class="nav flex-column" id = "list">
+            <li class="nav-item">
+              <a  class="white"id="5"class="nav-link btn-lg " href="{% url 'system:index' %}" >
+                <span data-feather="home"></span>
+                Dashboard <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item btn-lg ">
+              <a class="nav-link" href="#">
+                <span data-feather="file"></span>
+                Invoices
+              </a>
+            </li>
+            <li class="nav-item btn-lg ">
+              <a class="white" class=" nav-link " href="{% url 'system:quotations' %}">
+                <span data-feather="shopping-cart"></span>
+                Quotations
+              </a>
+            </li>
+            <li class="nav-item btn-lg ">
+              <a class="white" class="nav-link" href="#">
+                <span data-feather="users"></span>
+                D Notes
+              </a>
+            </li>
+            <li class="nav-item btn-lg ">
+              <a class="white" class="nav-link" href="#">
+                <span data-feather="bar-chart-2"></span>
+                Reports
+              </a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="layers"></span>
+                Integrations
+              </a>
+            </li> -->
+          </ul>
+
+
+        </div>
+      </nav>
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <center><h2 style="padding-top:8%;">INVOICES<br><br></h2></center>
+
+      <table class="table table-responsive-xl  table-hover  ">
+        <thead>
+          <tr style="background-color:#3F4093;"class="p">
+            <th class= "table-bordered"scope="col-1" style="color: white;">Invoice Number</th>
+            <th class= "table-bordered"scope="col-1" style="color: white;">Company</th>
+            <th class= "table-bordered"scope="col" style="color: white;" >Issued by</th>
+            <th class= "header table-bordered "scope="col" style="color: white;">Date issued</th>
+            <th class= "header table-bordered "scope="col" style="color: white;">Total</th>
+            <th class= "header table-bordered "scope="col" style="color: white;">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% load django_template_maths %}
+          {% if invoice_list %}
+          {% for q in invoice_list%}
+
+            {% with total=q.total %}
+              <tr>
+
+                <td class= "table-bordered"><a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{q.number}}</a>
+                <td class= "table-bordered">
+                  {% for c in q.icustomer_set.all%}
+                  <a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{c.c_name}}</a>
+                  {% endfor %}
+                </td>
+
+                <td class="data table-bordered"><a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{q.user_name}}</a></td>
+                <td class="data table-bordered"><a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{q.date_created|date:"d"}}/{{q.date_created|date:"m"}}/{{q.date_created|date:"Y"}}</a></td>
+                <td class="data table-bordered"><a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{q.total}}</a></td>
+
+                <td  class=" table-bordered" style="align:center">
+                  {% if q.total <= 0 %}
+                  <a href="{% url 'system:add_details' q.id%}" class=" btn btn-primary float-sm-left" style="text-align:center; margin-right:10px;">Edit</a>
+                  {% else %}
+                  <a class="  btn  disabled" href="#"style="color:#000000;text-align:center">Issued</a>
+                  {%endif%}
+                </td>
+
+              </tr>
+              {% endwith %}
+          {% endfor %}
+          {% else %}
+          {% endif %}
+        </tbody>
+
+      </table>
+
+    </main>
+  </div>
 </div>

@@ -1,0 +1,18 @@
+============== Installation of the system ==============
+Step 1. Install python>=3.6 get the guide from www.python.org
+Step 2. navigate to the folder named graspsystem and copy it to c drive 
+Step 3. Go to sart and search for powershell and run it as administrator
+Step 4. navigate to the folder by typying cd \graspsystem 
+Step 5. type install1.bat > to install and create a virtual environment  
+Step 7. type prepare.bat >to activate it
+Step 6. type install2.bat > to install django 
+
+
+pip install django
+python -m django --version
+cd \
+mkdir grasp
+cd grasp
+django-admin startproject stocks
+cd stocks
+python manage.py runserver

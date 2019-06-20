@@ -1,13 +1,25 @@
-Hello you are about to add details
-<form action="{%url 'system:add_details' id %}" method ="post">{%csrf_token%}
-  <p>Customer Details </p>
-  <ul>
-    {{form.as_p}}
-  </ul>
-  <p>Bank Details </p>
-  <ul>
-    {{form1.as_p}}
-  </ul>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% load static %}
+<br><br>
+<link rel="stylesheet" type="text/css" href="{% static "system/css/styles.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.min.css" %}" >
+<link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.css" %}" >
+<div class="container">
+  <form style="margin-left:20%;" action="{%url 'system:add_details' id %}" method ="post">
+    {%csrf_token%}
+    <p class="p"><br>Client Details</p>
+      {{form.as_p}}
 
-  <input type="submit" name="submit" value="Next">
-</form>
+      <p class="p"><br>Banking Details</p>
+      {{form1.as_p}}
+<div class="input-group col-md-6">
+    </div>
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-primary" >Create</button>
+
+      <a href="{%url 'system:invoices'%}"   class="btn btn-primary float-sm-right" >Cancel</a >
+        </div>
+
+  </form>
+  <br><br><br><br>
+</div>
