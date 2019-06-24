@@ -8,7 +8,7 @@ class Invoice(models.Model):
     user_name =models.CharField(default='Grasp Chemicals',max_length = 25)
     order_number = models.CharField(default='0000000',max_length = 25)
     vat_number = models.CharField(default='00000',max_length = 25)
-    vat = models.DecimalField(default=0.0,decimal_places=2,max_digits=2)
+    vat = models.DecimalField(default=0.15,decimal_places=2,max_digits=2)
     def __str__(self):
         return "Invoice: "+ self.number + "\t Total: " +str(self.total) + " \tIssued  By: "+ self.user_name
 
@@ -51,6 +51,25 @@ class Quotation(models.Model):
 
 class CProduct(models.Model):
     quotation = models.ForeignKey('Quotation',on_delete= models.CASCADE)
+    p_name = models.CharField(max_length= 50)
+    p_quantity = models.DecimalField(default=0.0,decimal_places=2,max_digits=25)
+    p_price = models.DecimalField(default=0.0,decimal_places=2,max_digits=25)
+    def __str__(self):
+        return "Product : "+ self.p_name + " Quantity: " +str(object=self.p_quantity)+"Price: "+ str(self.p_price) +" Total: " + str(self.p_quantity +self.p_price)
+
+class Delivery(models.Model):
+    total = models.DecimalField(default=0.0,decimal_places=2,max_digits=25)
+    customer = models.CharField(max_length = 50)
+    customer_address = models.CharField(max_length = 50)
+    user_name =models.CharField(default='Grasp Chemicals',max_length = 25)
+    date_created = models.DateTimeField('date_published')
+    vat_as_per_invoice = models.DecimalField(default=0.15,decimal_places=2,max_digits=2)
+    def __str__(self):
+        return "Delivery Note: "+ str(self.id) + "\t Total: " +str(self.total) + " \tIssued  By: "+ self.user_name +" Date created: "+ str(self.date_created)
+
+
+class DProduct(models.Model):
+    quotation = models.ForeignKey('Delivery',on_delete= models.CASCADE)
     p_name = models.CharField(max_length= 50)
     p_quantity = models.DecimalField(default=0.0,decimal_places=2,max_digits=25)
     p_price = models.DecimalField(default=0.0,decimal_places=2,max_digits=25)

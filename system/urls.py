@@ -7,6 +7,7 @@ urlpatterns = [
     path('invoices/', views.invoices, name='invoices'),
     #create /system/invoices/create
     path('invoices/newinvoice/', views.new, name='icreate'),
+    path('invoices/new/', views.create_invoice, name='i_create'),
     #add details
     path('invoices/<int:invoice_id>/add_details', views.add_details, name='add_details'),
 
@@ -28,7 +29,17 @@ urlpatterns = [
     #detail /system/quotations/2/
     path('quotations/<int:i_id>/', views.q_detail, name='qdetail'),
 
-    path('purchases/', views.index, name='purchases'),
+    #Delivery Notes
+    path('deliveries/', views.deliveries, name='deliveries'),
+    #create /system/quotations/create
+    path('deliveries/create/', views.new_dnote, name='dcreate'),
+    #preview /system/quotations/2/preview
+    path('deliveries/<int:i_id>/preview/', views.d_preview, name='dpreview'),
+    #add products
+    path('deliveries/<int:invoice_id>/add', views.dadd_product, name='dadd_product'),
+    #detail /system/quotations/2/
+    path('deliveries/<int:i_id>/', views.d_detail, name='ddetail'),
     path('reciepts/', views.reciepts, name='reciepts'),
+    path('', views.developer, name='developer'),
 
 ]

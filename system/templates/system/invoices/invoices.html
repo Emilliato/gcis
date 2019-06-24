@@ -82,7 +82,7 @@ hr{
               </a>
             </li>
             <li class="nav-item btn-lg ">
-              <a class="white" class="nav-link" href="#">
+              <a class="white" class="nav-link" href="{% url 'system:deliveries' %}">
                 <span data-feather="users"></span>
                 D Notes
               </a>
@@ -105,8 +105,20 @@ hr{
         </div>
       </nav>
   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-    <center><h2 style="padding-top:8%;">INVOICES<br><br></h2></center>
 
+    <center><h2 style="padding-top:8%;">INVOICES<br><br></h2></center>
+    <!-- <form style="margin-left:20%;" method ="post"  id="create">
+      {%csrf_token%}
+      <div class="form-group col-md-6">
+        ORDER NUMBER:&nbsp; &nbsp; &nbsp;
+        <input type="text" name="order" placeholder="Name" ><br><br>
+        VAT NUMBER:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="vat_number" placeholder="Name" ><br><br>
+        VAT:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="number" name="vat" placeholder="0.0" ><br><br>
+          <button type="submit" id="submit" class="btn btn-primary" >Create</button>
+        </div>
+    </form> -->
       <table class="table table-responsive-xl  table-hover  ">
         <thead>
           <tr style="background-color:#3F4093;"class="p">
@@ -157,3 +169,26 @@ hr{
     </main>
   </div>
 </div>
+
+
+<script src="{% static "system/js/plugin.js" %}"></script>
+<script src="{% static "system/js/jquery.min.js"%}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $(document).on('submit','#create',function(e){
+    $.ajax({
+      type:'POST',
+      url: '{%url 'system:i_create' %}',
+      data:{
+        order_number:$('order').val(),
+        vat_number:$('vat_number').val(),
+        vat:$('vat').val(),
+      },
+      success:function(){
+        alert("Invoice created")
+      }
+    });
+  });
+</script>

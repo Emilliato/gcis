@@ -1,5 +1,5 @@
 from django import forms
-from .models import Invoice, IProduct, ICustomer,IBankDetail,Quotation, CProduct
+from .models import Invoice, IProduct, ICustomer,IBankDetail,Quotation, CProduct,Delivery,DProduct
 
 class InvoiceForm(forms.ModelForm):
     class Meta:
@@ -9,6 +9,10 @@ class QuotationForm(forms.ModelForm):
     class Meta:
         model =Quotation
         fields =('customer','customer_address','ref_number')
+class DeliveryForm(forms.ModelForm):
+    class Meta:
+        model =Delivery
+        fields =('customer','customer_address')
 
 class IProductForm(forms.ModelForm):
     class Meta:
@@ -17,6 +21,10 @@ class IProductForm(forms.ModelForm):
 class CProductForm(forms.ModelForm):
     class Meta:
         model =CProduct
+        fields =('p_name','p_quantity','p_price')
+class DProductForm(forms.ModelForm):
+    class Meta:
+        model =DProduct
         fields =('p_name','p_quantity','p_price')
 class DetailsForm(forms.ModelForm):
     class Meta:

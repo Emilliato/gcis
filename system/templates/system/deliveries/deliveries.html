@@ -36,7 +36,7 @@ hr{
         <a class="navbar-brand" href="{%url 'system:index' %}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'system:qcreate' %}" role="button">New Quotation</a>
+        <a class="nav-link" href="{% url 'system:dcreate' %}" role="button">New Delivery Note</a>
       </li>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -77,13 +77,13 @@ hr{
             </a>
           </li>
           <li class="nav-item btn-lg ">
-            <a  class=" nav-link " href="#">
+            <a  class="white" class=" nav-link " href="{% url 'system:quotations' %}">
               <span data-feather="shopping-cart"></span>
               Quotations
             </a>
           </li>
           <li class="nav-item btn-lg ">
-            <a class="white" class="nav-link" href="{% url 'system:deliveries' %}">
+            <a  class="nav-link" href="#">
               <span data-feather="users"></span>
               D Notes
             </a>
@@ -104,10 +104,10 @@ hr{
       </div>
     </nav>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-  <center><h2 style="padding-top:8%;">QUOTATIONS<br><br></h2></center>
+  <center><h2 style="padding-top:8%;">Delivery Notes<br><br></h2></center>
 
   <div class="container">
-    <table class="table  table-hover  ">
+    <table class="table  table-hover">
       <thead>
         <tr style="background-color:#3F4093;"class="p">
           <th class= "table-bordered"scope="col-1" style="color: white;">Date Issued</th>
@@ -119,23 +119,23 @@ hr{
       </thead>
       <tbody>
         {% load django_template_maths %}
-        {% if quotation_list %}
-        {% for q in quotation_list%}
+        {% if delivery_list %}
+        {% for q in delivery_list%}
 
           {% with total=q.total %}
             <tr>
 
-              <td class= "table-bordered"><a href="{% url 'system:qdetail' q.id%}" class="list-group-item list-group-item-action"> {{q.date_created|date:"d"}}/{{q.date_created|date:"m"}}/{{q.date_created|date:"Y"}}</a>
+              <td class= "table-bordered"><a href="{% url 'system:ddetail' q.id%}" class="list-group-item list-group-item-action"> {{q.date_created|date:"d"}}/{{q.date_created|date:"m"}}/{{q.date_created|date:"Y"}}</a>
               <td class= "table-bordered">
-                <a href="{% url 'system:qdetail' q.id%}" class="list-group-item list-group-item-action"> {{q.customer}}</a>
+                <a href="{% url 'system:ddetail' q.id%}" class="list-group-item list-group-item-action"> {{q.customer}}</a>
               </td>
 
-              <td class="data table-bordered"><a href="{% url 'system:qdetail' q.id%}" class="list-group-item list-group-item-action"> {{q.user_name}}</a></td>
-              <td class="data table-bordered"><a href="{% url 'system:qdetail' q.id%}" class="list-group-item list-group-item-action"> {{q.total}}</a></td>
+              <td class="data table-bordered"><a href="{% url 'system:ddetail' q.id%}" class="list-group-item list-group-item-action"> {{q.user_name}}</a></td>
+              <td class="data table-bordered"><a href="{% url 'system:ddetail' q.id%}" class="list-group-item list-group-item-action"> {{q.total}}</a></td>
 
               <td  class=" table-bordered" style="align:center">
                 {% if q.total <= 0 %}
-                <a href="{% url 'system:qpreview' q.id%}" class=" btn btn-primary float-sm-left" style="text-align:center; margin-right:10px;">Edit</a>
+                <a href="{% url 'system:dpreview' q.id%}" class=" btn btn-primary float-sm-left" style="text-align:center; margin-right:10px;">Edit</a>
                 {% else %}
                 <a class="  btn  disabled" href="#"style="color:#000000;text-align:center">Issued</a>
                 {%endif%}
@@ -145,7 +145,7 @@ hr{
             {% endwith %}
         {% endfor %}
         {% else %}
-        <p>There are no Quotations issued yet!</p>
+        <p>There are no delivery notes issued yet!</p>
         {% endif %}
       </tbody>
 

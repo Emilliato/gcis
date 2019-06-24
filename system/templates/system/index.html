@@ -61,7 +61,7 @@
                 </a>
               </li>
               <li class="nav-item btn-lg ">
-                <a class="white"; id="5"class="nav-link" href="#">
+                <a class="white"; id="5"class="nav-link" href="{% url 'system:deliveries' %}">
                   <span data-feather="users"></span>
                   D Notes
                 </a>
@@ -203,11 +203,71 @@
                     {% endwith %}
                 {% endfor %}
                 {% else %}
-                <p>There are no Quotations issued yet!</p>
+                <p>There are no delivery notes issued yet!</p>
                 {% endif %}
               </tbody>
 
             </table>
+            <h2>Recently sent out Delivery Notes</h2>
+            <p class="p">The table below shows five recently created quotations. To see more or create a new one please click the button below ......</p>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                  <a class="btn btn-sm btn-outline-secondary" href="{% url 'system:deliveries' %}"> Delivery Notes</a>
+
+                </div>
+              </div>
+            </div>
+            <table class="table  table-hover  ">
+              <thead>
+                <tr style="background-color:#3F4093;"class="p">
+                  <th class= "table-bordered"scope="col-1" style="color: white;">Date Issued</th>
+                  <th class= "table-bordered"scope="col-1" style="color: white;">Company</th>
+                  <th class= "table-bordered"scope="col" style="color: white;padding-left:5%;" >Issued by</th>
+                  <th class= "header table-bordered "scope="col" style="color: white;">Total</th>
+                  <th class= "header table-bordered "scope="col" style="color: white;">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% load django_template_maths %}
+                {% if delivery_list %}
+                {% for q in delivery_list%}
+
+                  {% with total=q.total %}
+                    <tr>
+
+                      <td class= "table-bordered"><a href="{% url 'system:ddetail' q.id%}" class="list-group-item list-group-item-action"> {{q.date_created|date:"d"}}/{{q.date_created|date:"m"}}/{{q.date_created|date:"Y"}}</a>
+                      <td class= "table-bordered">
+                        <a href="{% url 'system:ddetail' q.id%}" class="list-group-item list-group-item-action"> {{q.customer}}</a>
+                      </td>
+
+                      <td class="data table-bordered"><a href="{% url 'system:ddetail' q.id%}" class="list-group-item list-group-item-action"> {{q.user_name}}</a></td>
+                      <td class="data table-bordered"><a href="{% url 'system:ddetail' q.id%}" class="list-group-item list-group-item-action"> {{q.total}}</a></td>
+
+                      <td  class=" table-bordered" style="align:center">
+                        {% if q.total <= 0 %}
+                        <a href="{% url 'system:dpreview' q.id%}" class=" btn btn-primary float-sm-left" style="text-align:center; margin-right:10px;">Edit</a>
+                        {% else %}
+                        <a class="  btn  disabled" href="#"style="color:#000000;text-align:center">Issued</a>
+                        {%endif%}
+                      </td>
+
+                    </tr>
+                    {% endwith %}
+                {% endfor %}
+                {% else %}
+                <p>There are no delivery notes issued yet!</p>
+                {% endif %}
+              </tbody>
+
+            </table>
+
+            <div id="ex1" class="modal">
+                <p>Thanks for clicking. That felt good.</p>
+                <a href="#" rel="modal:close">Close</a>
+            </div>
+            <!-- <a href="#ex1" rel="modal:open">example</a> -->
               <br><br>
         </main>
       </div>
@@ -220,14 +280,12 @@
                     <h5>Get started</h5>
                     <ul>
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Sign up</a></li>
-                        <li><a href="#">Downloads</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>About the developer</h5>
                     <ul>
-                        <li><a href="www.simpledeveloper.cf">Website</a></li>
+                        <li><a href="#">Website: www.simpledeveloper.cf</a></li>
                         <li><a href="emillio@simpledeveloper.cf">Contact us</a></li>
                         <!-- <li><a href="#">Reviews</a></li> -->
                     </ul>
@@ -254,6 +312,7 @@
                 </div>
             </div>
         </div>
+
     </footer>
 
 
@@ -261,29 +320,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{% static "system/js/plugin.js" %}"></script>
+    <script src="{% static "system/js/jquery.min.js"%}"></script>
 
-    <script>
-
-      var items =document.querySelectorAll("#list li a"),
-
-      tab=[],liIndex;
-
-      for(var i=0;i<items.length;i++){
-        // tab.push(items[i].id);
-      }
-
-      for(var w=0;w<items.length;w++){
-
-          console.log(items[w].id);
-
-        items[w].onclick = function(){
-
-        };
-
-      }
-
-
-    </script>
   </body>
 
 </html>

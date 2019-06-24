@@ -1,17 +1,20 @@
 from django.shortcuts import render,get_object_or_404
 from django.template import loader
 from django.http import HttpResponse,HttpResponseRedirect
-from  .models import Invoice ,Quotation
-from .forms import InvoiceForm,DetailsForm,BankDetailsForm,IProductForm ,QuotationForm,CProductForm
+from  .models import Invoice ,Quotation,Delivery
+from .forms import InvoiceForm,DetailsForm,BankDetailsForm,IProductForm ,QuotationForm,CProductForm, DeliveryForm,DProductForm
 import random
 from django.utils import timezone
 from datetime import datetime
+def developer(request):
+    return HttpResponse('www.simpledeveloper.cf')
 # Create your views here.
 def index(request):
     template= 'system/index.html'
     invoice_list= Invoice.objects.order_by('-date_created')
     quotation_list= Quotation.objects.order_by('-date_created')
-    return render(request,template,{'invoice_list':invoice_list[:5],'mUser':request.user, 'quotation_list':quotation_list[:5]})
+    delivery_list= Delivery.objects.order_by('-date_created')
+    return render(request,template,{'invoice_list':invoice_list[:5],'mUser':request.user, 'quotation_list':quotation_list[:5], 'delivery_list':delivery_list[:5]})
 
 #For invoices
 def invoices(request):
@@ -45,10 +48,9 @@ def new(request):
     invoice_list = Invoice.objects.order_by('-date_created')
     id=0
     if(len(invoice_list)!=0):
-        id1 = str(int(invoice_list[0].number[-1])+1)
-        id = int(id1)
+        id = str(int(invoice_list[0].number[-1])+1)
 
-    date1= datetime.strftime(timezone.now(),'%y')+str(str(random.randint(0,9)))+datetime.strftime(timezone.now(),'%d').lstrip('0')+str(id)
+    date1= datetime.strftime(timezone.now(),'%y')+str(str(random.randint(0,9)))+datetime.strftime(timezone.now(),'%d').lstrip('0')+id
     invoiceNum = 'GC'+date1
     template= 'system/invoices/new_invoice.html'
     if request.POST:
@@ -63,6 +65,27 @@ def new(request):
     else:
         form = InvoiceForm()
     return render(request,template, {'form':form})
+def create_invoice(request):
+    invoice_list = Invoice.objects.order_by('-date_created')
+    id=0
+    if(len(invoice_list)!=0):
+        id = str(int(invoice_list[0].number[-1])+1)
+
+    date1= datetime.strftime(timezone.now(),'%y')+str(str(random.randint(0,9)))+datetime.strftime(timezone.now(),'%d').lstrip('0')+id
+    invoiceNum = 'GC'+date1
+    if request.POST:
+        order = request.POST['order_number']
+        vat_number1 = request.POST['vat_number']
+        vat1 = request.POST['vat']
+        Invoice.objects.create(
+            number= invoiceNum,
+            date_created = timezone.now(),
+            order_number = order,
+            vat_number = vat_number1,
+            vat = vat1
+        )
+        return  HttpResponseRedirect('/system/invoices/')
+
 def add_details(request,invoice_id):
     a = get_object_or_404(Invoice,pk=invoice_id)
     id = invoice_id
@@ -163,3 +186,59 @@ def q_detail(request,i_id):
 #for sales reciepts can be changed to delivery notes
 def reciepts(response):
     return HttpResponse("Welcome to the reciepts section.")
+#for delivery notes
+def deliveries(request):
+        delivery_list= Delivery.objects.order_by('-date_created')
+        template= 'system/deliveries/deliveries.html'
+        return render(request,template,{'delivery_list':delivery_list})
+
+def new_dnote(request):
+    template= 'system/deliveries/new_delivery.html'
+    if request.POST:
+        form = DeliveryForm(request.POST)
+        if form.is_valid():
+            f= form.save(commit=False)
+            f.user_name = request.user
+            f.date_created = timezone.now()
+            f.save(True)
+            return HttpResponseRedirect('/system/deliveries/')
+    else:
+        form = DeliveryForm()
+    return render(request,template, {'form':form})
+def d_preview(request,i_id):
+    delivery = get_object_or_404(Delivery,pk=i_id)
+    a = delivery
+    count = float(0.00)
+    for c in delivery.dproduct_set.all():
+        count = count + float(c.p_price*c.p_quantity)
+    a.total = count
+    a.save()
+    template= 'system/deliveries/preview.html'
+    context = {'delivery': a}
+    return render(request,template,context)
+def dadd_product(request,invoice_id):
+    a = get_object_or_404(Delivery,pk=invoice_id)
+    id = invoice_id
+    template= 'system/deliveries/add_product.html'
+    if request.POST:
+        form = DProductForm(request.POST)
+        if form.is_valid():
+            f= form.save(commit=False)
+            f.quotation = a
+            f.save(True)
+            a2= get_object_or_404(Delivery,pk=invoice_id)
+            return HttpResponseRedirect('/system/deliveries/%s'%a2.pk+'/preview/')
+    else:
+        form = DProductForm()
+    return  render(request,template,{'form':form, 'id':id})
+def d_detail(request,i_id):
+    delivery = get_object_or_404(Delivery,pk=i_id)
+    a = delivery
+    count = float(0.00)
+    for c in delivery.dproduct_set.all():
+        count = count + float(c.p_price*c.p_quantity)
+    a.total = count
+    a.save()
+    template= 'system/deliveries/detail.html'
+    context = {'delivery': a}
+    return render(request,template,context)
