@@ -46,7 +46,7 @@ def i_preview(request,i_id):
     return render(request,template,context)
 def new(request):
     invoice_list = Invoice.objects.order_by('-date_created')
-    id=0
+    id=str(0)
     if(len(invoice_list)!=0):
         id = str(int(invoice_list[0].number[-1])+1)
 
