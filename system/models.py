@@ -7,6 +7,8 @@ class Invoice(models.Model):
     date_created = models.DateTimeField('date_published')
     user_name =models.CharField(default='Grasp Chemicals',max_length = 25)
     order_number = models.CharField(default='0000000',max_length = 25)
+    c_name =models.CharField(default=' ',max_length= 50)
+    c_address = models.CharField(default=' ',max_length= 100)
     vat_number = models.CharField(default='00000',max_length = 25)
     vat = models.DecimalField(default=0.15,decimal_places=2,max_digits=2)
     def __str__(self):
@@ -22,7 +24,6 @@ class IProduct(models.Model):
 class ICustomer(models.Model):
     invoice = models.ForeignKey('Invoice',on_delete= models.CASCADE)
     c_name =models.CharField(max_length= 50)
-    c_address = models.CharField(max_length= 100)
     c_address = models.CharField(max_length= 100)
 
 

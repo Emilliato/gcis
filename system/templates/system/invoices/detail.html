@@ -5,7 +5,13 @@
 <link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.min.css" %}" >
 <link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.css" %}" >
 
-
+<div class="row " style="padding-top:20px;">
+ <div class="col-3 float-sm-center">
+   <div class="float-sm-center" style="padding-left: 20%">
+   <a class="btn btn-success" href="{%url 'system:invoices' %}" role="button">Back</a>
+   </div>
+ </div>
+</div>
   <div class="cont" id="print_me">
     <div class="row ">
 
@@ -39,11 +45,11 @@
 
     <div class="row conti">
       <div class="col-6">
-        {%for c in invoice.icustomer_set.all%}
+
         <p class="p"><strong>To :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{c.c_name}} </p>
-        <p class="p"><strong>Address :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{c.c_address}}</p>
-        {%endfor%}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invoice.c_name}} </p>
+        <p class="p"><strong>Address :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invoice.c_address}}</p>
+
         <p class="p"><strong>Invoice No.&nbsp;&nbsp;</strong> {{invoice.number}}</p>
         <br><br>
       </div>

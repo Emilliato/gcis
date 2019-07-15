@@ -4,7 +4,7 @@ from .models import Invoice, IProduct, ICustomer,IBankDetail,Quotation, CProduct
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model =Invoice
-        fields =('order_number','vat_number','vat')
+        fields =('c_name','c_address','order_number','vat_number','vat')
 class QuotationForm(forms.ModelForm):
     class Meta:
         model =Quotation

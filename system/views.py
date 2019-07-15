@@ -90,15 +90,9 @@ def add_details(request,invoice_id):
     a = get_object_or_404(Invoice,pk=invoice_id)
     id = invoice_id
     template= 'system/invoices/add_details.html'
-    template2= 'system/invoices/preview.html'
     if request.POST:
-        form = DetailsForm(request.POST)
         form1 = BankDetailsForm(request.POST)
-        if form.is_valid() and form1.is_valid():
-            f = form.save(commit=False)
-            f.invoice = a
-            f.save(True)
-
+        if form1.is_valid():
             f1 = form1.save(commit=False)
             f1.invoice = a
             f1.save(True)
@@ -106,9 +100,8 @@ def add_details(request,invoice_id):
             return HttpResponseRedirect('/system/invoices/preview/%s'%a2.pk)
 
     else:
-        form = DetailsForm()
         form1 = BankDetailsForm()
-    return render(request,template, {'form':form,'form1':form1, 'id':id})
+    return render(request,template, {'form1':form1, 'id':id})
 def add_product(request,invoice_id):
     a = get_object_or_404(Invoice,pk=invoice_id)
     id = invoice_id

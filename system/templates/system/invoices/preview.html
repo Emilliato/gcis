@@ -1,14 +1,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% load static %}
+{% load django_template_maths %}
 <link rel="stylesheet" type="text/css" href="{% static "system/css/styles.css" %}">
 <link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.min.css" %}" >
 <link rel="stylesheet" type="text/css" href="{% static "system/css/bootstrap.css" %}" >
 
-   <!-- <center>
-    <p>I am preview
-    </p>
-   </center> -->
-
+   <div class="conti" >
+     <div class="row " style="padding-top:20px;">
+      <div class="col-3 float-sm-center">
+        <div class="float-sm-center" style="padding-left: 20%">
+        <a class="btn btn-success" href="{%url 'system:invoices' %}" role="button">Back</a>
+        </div>
+      </div>
+     </div>
+    </div>
 
 <div class="cont" id="print_me">
   <div class="row ">
@@ -43,11 +48,11 @@
 
   <div class="row conti">
     <div class="col-6">
-      {%for c in invoice.icustomer_set.all%}
+
       <p class="p"><strong>To :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{c.c_name}} </p>
-      <p class="p"><strong>Address :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{c.c_address}}</p>
-      {%endfor%}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invoice.c_name}}</p>
+      <p class="p"><strong>Address :</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invoice.c_address}}</p>
+
       <p class="p"><strong>Invoice No.&nbsp;&nbsp;</strong> {{invoice.number}}</p>
       <br><br>
     </div>
@@ -61,13 +66,27 @@
 </div>
 
 <div class="conti">
-<div class="row ">
- <div class="col-3 float-sm-center">
-   <div class="float-sm-center" style="padding-left: 20%">
-   <a class="btn btn-success" href="{%url 'system:add_product' invoice.id%}" role="button">Add Product</a>
-   </div>
- </div>
-</div>
+    <div class="row ">
+       <div class="col-3 float-sm-center">
+           <div class="float-sm-center" style="padding-left: 8%;">
+             <a class="btn btn-success" href="{%url 'system:add_product' invoice.id%}" role="button" >Add Product</a>
+           </div>
+       </div>
+       <div class="col-7 float-sm-center">
+         <select class="browser-default custom-select custom-select-lg mb-3">
+           <option disabled selected>Select an item to delete</option>
+           {%for c in invoice.iproduct_set.all%}
+            <option value="{{c.id}}"> {{c.p_name}} &nbsp;&nbsp; {{c.p_quantity|add_decimal:0 }} &nbsp;&nbsp; {{c.p_price}}</option>
+           {%endfor%}
+         </select>
+      </div>
+      <div class="col-3 float-sm-center">
+          <div class="float-sm-center" style="padding-left: 2%;">
+            <a class="btn btn-success" href="{%url 'system:add_product' invoice.id%}" role="button" >Delete</a>
+          </div>
+      </div>
+    </div>
+
 </div>
 <div class="cont" id="print_me1">
   <table class="table  table-sm">
@@ -84,7 +103,7 @@
   {% with total=invoice.total %}
       {%for c in invoice.iproduct_set.all%}
           <tr>
-            {% load django_template_maths %}
+
             <td class= "table-bordered">{{c.p_quantity|add_decimal:0 }}</td>
             <td class= "table-bordered"style="padding-left:15%;">{{c.p_name}}</td>
             <td class="data table-bordered">{{c.p_price}}</td>

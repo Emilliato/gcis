@@ -37,20 +37,7 @@ hr{
       <li class="nav-item">
         <a class="nav-link" href="{% url 'system:icreate' %}" role="button">New Invoice</a>
       </li>
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Quotations</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li> -->
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -93,12 +80,6 @@ hr{
                 Reports
               </a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="layers"></span>
-                Integrations
-              </a>
-            </li> -->
           </ul>
 
 
@@ -140,9 +121,8 @@ hr{
 
                 <td class= "table-bordered"><a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{q.number}}</a>
                 <td class= "table-bordered">
-                  {% for c in q.icustomer_set.all%}
-                  <a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{c.c_name}}</a>
-                  {% endfor %}
+                  <a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{q.c_name}}</a>
+
                 </td>
 
                 <td class="data table-bordered"><a href="{% url 'system:idetail' q.id%}" class="list-group-item list-group-item-action"> {{q.user_name}}</a></td>
