@@ -129,6 +129,7 @@ def add_product(request,invoice_id):
 
 #for quotation
 def quotations(request):
+
         quotation_list= Quotation.objects.order_by('-date_created')
         template= 'system/quotations/quotations.html'
         return render(request,template,{'quotation_list':quotation_list})
