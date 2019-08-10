@@ -1,1 +1,1 @@
-web: gunicorn gciststem.wsgi --log-file -
+web: gunicorn gcisystem.wsgi --log-file -
