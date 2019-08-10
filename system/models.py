@@ -12,6 +12,14 @@ class Invoice(models.Model):
     def __str__(self):
         return "Invoice: "+ self.number + "\t Total: " +str(self.total) + " \tIssued  By: "+ self.user_name
 
+
+class Product(models.Model):
+    p_name = models.CharField(max_length= 50)
+    p_quantity = models.DecimalField(default=0.0,decimal_places=2,max_digits=25)
+    p_price = models.DecimalField(default=0.0,decimal_places=2,max_digits=25)
+    def calculateTotal(self):
+        return round(self.p_quantity*self.p_price,2)
+
 class IProduct(models.Model):
     invoice = models.ForeignKey('Invoice',on_delete= models.CASCADE)
     p_name = models.CharField(max_length= 50)
